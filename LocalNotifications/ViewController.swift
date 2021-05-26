@@ -30,7 +30,10 @@ class ViewController: UIViewController {
 	}
 
 	@objc func scheduleLocal() {
-
+		var dateComponents = DateComponents()
+		dateComponents.hour = 10
+		dateComponents.minute = 30
+		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 	}
 
 }
