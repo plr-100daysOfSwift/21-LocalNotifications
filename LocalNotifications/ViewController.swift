@@ -32,10 +32,11 @@ class ViewController: UIViewController {
 	@objc func scheduleLocal() {
 
 		let center = UNUserNotificationCenter.current()
+		center.removeAllPendingNotificationRequests()
 
 		let content = UNMutableNotificationContent()
 		content.title = "Time for a Break"
-		content.body = "Stand up and be counted"
+		content.body = "Stand up and be counted!"
 		content.categoryIdentifier = "useful"
 		content.userInfo = ["customData": "hoopla"]
 		content.sound = .default
@@ -43,7 +44,8 @@ class ViewController: UIViewController {
 		var dateComponents = DateComponents()
 		dateComponents.hour = 10
 		dateComponents.minute = 30
-		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+//		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 
 		let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 		center.add(request)
