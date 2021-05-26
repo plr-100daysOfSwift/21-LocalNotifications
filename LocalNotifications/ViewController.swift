@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -31,6 +31,8 @@ class ViewController: UIViewController {
 
 	@objc func scheduleLocal() {
 
+		registerCategories()
+
 		let center = UNUserNotificationCenter.current()
 		center.removeAllPendingNotificationRequests()
 
@@ -49,6 +51,17 @@ class ViewController: UIViewController {
 
 		let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 		center.add(request)
+
+	}
+
+	func registerCategories() {
+		let center = UNUserNotificationCenter.current()
+		center.delegate = self
+
+		let action = UNNotificationAction(identifier: "show", title: "Show me more ...", options: [.foreground])
+		let category = UNNotificationCategory(identifier: "useful", actions: [action], intentIdentifiers: [], options: [])
+
+		center.setNotificationCategories([category])
 
 	}
 
