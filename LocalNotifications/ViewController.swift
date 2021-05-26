@@ -34,6 +34,13 @@ class ViewController: UIViewController {
 		dateComponents.hour = 10
 		dateComponents.minute = 30
 		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
+		let content = UNMutableNotificationContent()
+		content.title = "Time for a Break"
+		content.body = "Stand up and be counted"
+		content.categoryIdentifier = "useful"
+		content.userInfo = ["customData": "hoopla"]
+		content.sound = .default
 	}
 
 }
