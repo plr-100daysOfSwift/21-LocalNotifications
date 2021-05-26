@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ViewController: UIViewController {
 
@@ -16,6 +17,15 @@ class ViewController: UIViewController {
 	}
 
 	@objc func registerLocal() {
+		let center = UNUserNotificationCenter.current()
+
+		center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+			if granted {
+				print("Yes")
+			} else {
+				print("Oops!")
+			}
+		}
 
 	}
 
