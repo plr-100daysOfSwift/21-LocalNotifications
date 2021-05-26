@@ -30,10 +30,8 @@ class ViewController: UIViewController {
 	}
 
 	@objc func scheduleLocal() {
-		var dateComponents = DateComponents()
-		dateComponents.hour = 10
-		dateComponents.minute = 30
-		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
+		let center = UNUserNotificationCenter.current()
 
 		let content = UNMutableNotificationContent()
 		content.title = "Time for a Break"
@@ -41,6 +39,15 @@ class ViewController: UIViewController {
 		content.categoryIdentifier = "useful"
 		content.userInfo = ["customData": "hoopla"]
 		content.sound = .default
+
+		var dateComponents = DateComponents()
+		dateComponents.hour = 10
+		dateComponents.minute = 30
+		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
+		let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+		center.add(request)
+
 	}
 
 }
