@@ -66,19 +66,30 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
 	}
 
 	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+
+		var title = ""
+		var message = ""
+		var data = ""
+
 		let userInfo = response.notification.request.content.userInfo
 		if let customData = userInfo["customData"] as? String {
-			print("Custom data received: \(customData)")
+			data = customData
 		}
 
 		switch response.actionIdentifier {
 		case UNNotificationDefaultActionIdentifier:
-			print("Default identifier")
+			title = "Default Notification"
+			message = "There is no message."
 		case "show":
-			print("Show me more information ...")
+			title = "Useful Notification"
+			message = "The custom data is '\(data)'"
 		default:
 			break
 		}
+
+		let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "OK", style: .default))
+		present(ac, animated: true)
 
 		completionHandler()
 	}
